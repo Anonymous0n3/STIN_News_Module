@@ -1,3 +1,5 @@
+using STIN_News_Module.Logic;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

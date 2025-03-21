@@ -1,5 +1,4 @@
 using STIN_News_Module.Logic;
-using STIN_News_Module.Logic.AIStuff;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,10 +7,6 @@ builder.Services.AddRazorPages();
 
 //Load .env file
 EnvLoad.Load();
-
-AI aI = new AI();
-int integer = await aI.GetClasification("You are pretty");
-Console.WriteLine(integer);
 
 var app = builder.Build();
 

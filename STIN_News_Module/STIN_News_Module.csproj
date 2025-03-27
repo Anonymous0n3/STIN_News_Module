@@ -11,9 +11,4 @@
     <PackageReference Include="NewsAPI" Version="0.7.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Logic\Filtering\" />
-    <Folder Include="Logic\JsonModel\" />
-  </ItemGroup>
-
 </Project>

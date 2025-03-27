@@ -9,6 +9,8 @@ namespace STIN_News_Module.Logic.News
     public class News_Getting
     {
         private readonly string news_Api;
+        private static readonly Lazy<News_Getting> _instance = new Lazy<News_Getting>(() => new News_Getting());
+        public static News_Getting Instance => _instance.Value;
 
         public News_Getting()
         {

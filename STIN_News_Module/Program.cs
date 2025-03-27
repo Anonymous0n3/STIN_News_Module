@@ -6,6 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 EnvLoad.Load();
 
+//DeSerialization
+List<DataModel> data = JsonManager.DeserializeJson();
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 

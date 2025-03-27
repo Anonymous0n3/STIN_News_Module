@@ -1,6 +1,7 @@
 using STIN_News_Module.Logic;
 using STIN_News_Module.Logic.Filtering;
 using STIN_News_Module.Logic.JsonModel;
+using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
 

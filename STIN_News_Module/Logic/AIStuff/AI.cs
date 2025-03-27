@@ -8,8 +8,10 @@ namespace STIN_News_Module.Logic.AIStuff
     {
         private readonly string apiKey;
         private readonly string apiUrl;
+        private static readonly Lazy<AI> _instance = new Lazy<AI>(() => new AI());
+        public static AI Instance => _instance.Value;
 
-        public AI()
+        private AI()
         {
             // Constructor
             apiKey = Environment.GetEnvironmentVariable("AI_API_KEY");
@@ -18,6 +20,7 @@ namespace STIN_News_Module.Logic.AIStuff
 
         public async Task<int> GetClasification(string text)
         {
+            Console.WriteLine(text);
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
 
@@ -27,26 +30,37 @@ namespace STIN_News_Module.Logic.AIStuff
 
                 var resultJson = JsonConvert.DeserializeObject<List<List<Sentiment>>>(result);
 
-                double sentimentValue = 0;
+                double positive = 0;
+                double negative = 0;
                 //Read all labels from resultJson
                 for (int i = 0; i < resultJson.Count; i++)
                 {
                     for (int j = 0; j < resultJson[i].Count; j++)
                     {
+                        
                         if (resultJson[i][j].label.ToLower() == "positive")
                         {
-                            sentimentValue += resultJson[i][j].score;
+                            positive = resultJson[i][j].score;
                         }
                         else if (resultJson[i][j].label.ToLower() == "negative")
                         {
-                            sentimentValue -= resultJson[i][j].score;
+                            negative = resultJson[i][j].score;
                         }
                     }
                 }
 
-                sentimentValue *= 10;
+                if (positive > negative)
+                {
+                    Console.WriteLine("Sentiment: +1");
+                    return 1 ;
+                }
+                else
+                {
+                    Console.WriteLine("Sentiment: -1");
+                    return 0;
+                }
 
-                return (int)Math.Round(sentimentValue);
+
 
             }
             catch (Exception e)

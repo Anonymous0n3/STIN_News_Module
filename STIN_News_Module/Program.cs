@@ -1,5 +1,4 @@
 using STIN_News_Module.Logic;
-using STIN_News_Module.Logic.News;
 
 var builder = WebApplication.CreateBuilder(args);
 

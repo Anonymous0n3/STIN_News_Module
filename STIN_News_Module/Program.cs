@@ -5,9 +5,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 EnvLoad.Load();
 
-FilterManager filterManager = new FilterManager();
-filterManager.ExecuteAllFilters();
-
 // Add services to the container.
 builder.Services.AddRazorPages();
 

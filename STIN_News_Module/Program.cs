@@ -15,6 +15,9 @@ foreach (var article in articles)
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+//Load .env file
+EnvLoad.Load();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

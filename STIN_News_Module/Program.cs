@@ -1,6 +1,16 @@
 using STIN_News_Module.Logic;
+using STIN_News_Module.Logic.News;
 
 var builder = WebApplication.CreateBuilder(args);
+
+EnvLoad.Load();
+
+News_Getting news = new News_Getting();
+var articles = news.returnNews("Microsoft", 7);
+foreach (var article in articles)
+{
+    Console.WriteLine(article.Title + "\n");
+}
 
 // Add services to the container.
 builder.Services.AddRazorPages();

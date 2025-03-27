@@ -1,8 +1,12 @@
 using STIN_News_Module.Logic;
+using STIN_News_Module.Logic.Filtering;
 
 var builder = WebApplication.CreateBuilder(args);
 
 EnvLoad.Load();
+
+FilterManager filterManager = new FilterManager();
+filterManager.ExecuteAllFilters();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

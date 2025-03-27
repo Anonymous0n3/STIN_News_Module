@@ -25,12 +25,13 @@ namespace STIN_News_Module.Logic.Filtering
             }
         }
 
-        public void ExecuteAllFilters(List<DataModel> data)
+        public List<DataModel> ExecuteAllFilters(List<DataModel> data)
         {
             foreach (var filter in filters)
             {
                 data = filter.Execute(data);
             }
+            return data;
         }
     }
 }

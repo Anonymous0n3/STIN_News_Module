@@ -18,5 +18,8 @@ namespace STIN_News_Module.Logic.JsonModel
         public int Sale { get; set; }
 
         private int numOfArticles = 0;
+
+        public int getarticleNum() { return numOfArticles; }
+        public void setarticleNum(int value) { numOfArticles = value; }
     }
 }

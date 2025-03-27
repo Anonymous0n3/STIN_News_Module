@@ -6,7 +6,15 @@ namespace STIN_News_Module.Logic.Filtering.Filters
     {
         public override List<DataModel> Execute(List<DataModel> data)
         {
-            throw new NotImplementedException();
+            List<DataModel> returnData  = new List<DataModel>();
+                foreach (var item in data)
+                {
+                    if (item.Rating > 0)
+                    {
+                        returnData.Add(item);
+                }
+                }
+                return data;
         }
     }
 }

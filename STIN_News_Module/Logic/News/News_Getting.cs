@@ -15,7 +15,7 @@ namespace STIN_News_Module.Logic.News
             this.news_Api = Environment.GetEnvironmentVariable("NEWS_API_KEY");
         }
 
-        public string[] GetNews(string q,int days )
+        public List<Article> returnNews(string q,int days)
         {
             var newsApiClient = new NewsApiClient(news_Api);
             var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
@@ -29,28 +29,11 @@ namespace STIN_News_Module.Logic.News
             if (articlesResponse.Status == Statuses.Ok) 
             {
                 Console.WriteLine(articlesResponse.TotalResults);
-                String[] news = new String[articlesResponse.TotalResults];
-
-                foreach (var article in articlesResponse.Articles)
-                {
-                    Console.WriteLine(article.Content);
-                    news.Append(article.Content);
-                    Console.WriteLine(GetWholeArticle(article.Url));
-                }
-                return news;
+                
+                return articlesResponse.Articles;
             }
 
             return null;
-        }
-
-        private string GetWholeArticle(string url) 
-        {
-            using (WebClient client = new WebClient()) 
-            {
-                string s = client.DownloadString(url);
-            }
-
-                return null;
         }
     }
 }

@@ -6,10 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 EnvLoad.Load();
 
 News_Getting news = new News_Getting();
-String[] news_descs = news.GetNews("Microsoft", 7);
-foreach (var desc in news_descs)
+var articles = news.returnNews("Microsoft", 7);
+foreach (var article in articles)
 {
-    Console.WriteLine(desc);
+    Console.WriteLine(article.Title + "\n");
 }
 
 // Add services to the container.

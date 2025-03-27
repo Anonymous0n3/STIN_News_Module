@@ -1,4 +1,5 @@
 ﻿using STIN_News_Module.Logic.Filtering.Filters;
+using STIN_News_Module.Logic.JsonModel;
 using System.Reflection;
 
 namespace STIN_News_Module.Logic.Filtering
@@ -24,11 +25,11 @@ namespace STIN_News_Module.Logic.Filtering
             }
         }
 
-        public void ExecuteAllFilters()
+        public void ExecuteAllFilters(List<DataModel> data)
         {
             foreach (var filter in filters)
             {
-                filter.Execute();
+                data = filter.Execute(data);
             }
         }
     }

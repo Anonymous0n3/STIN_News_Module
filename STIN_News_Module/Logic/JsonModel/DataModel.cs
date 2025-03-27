@@ -16,5 +16,7 @@ namespace STIN_News_Module.Logic.JsonModel
 
         [JsonPropertyName("sale")]
         public bool Sale { get; set; }
+
+        private int numOfArticles = 0;
     }
 }

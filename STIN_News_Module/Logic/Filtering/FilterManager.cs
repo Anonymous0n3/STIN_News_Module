@@ -7,8 +7,11 @@ namespace STIN_News_Module.Logic.Filtering
     public class FilterManager
     {
         private List<FilterBase> filters = new List<FilterBase>();
+        private static readonly Lazy<FilterManager> _instance = new Lazy<FilterManager>(() => new FilterManager());
 
-        public FilterManager() {
+        public static FilterManager Instance => _instance.Value;
+
+        private FilterManager() {
             AutoRegisterFilters();
         }
 

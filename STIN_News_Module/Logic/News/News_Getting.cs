@@ -12,7 +12,7 @@ namespace STIN_News_Module.Logic.News
         private static readonly Lazy<News_Getting> _instance = new Lazy<News_Getting>(() => new News_Getting());
         public static News_Getting Instance => _instance.Value;
 
-        public News_Getting()
+        private News_Getting()
         {
             this.news_Api = Environment.GetEnvironmentVariable("NEWS_API_KEY");
         }
@@ -30,7 +30,7 @@ namespace STIN_News_Module.Logic.News
 
             if (articlesResponse.Status == Statuses.Ok) 
             {
-                Console.WriteLine(articlesResponse.TotalResults);
+                Console.WriteLine("Total Articels:" + articlesResponse.TotalResults);
                 
                 return articlesResponse.Articles;
             }

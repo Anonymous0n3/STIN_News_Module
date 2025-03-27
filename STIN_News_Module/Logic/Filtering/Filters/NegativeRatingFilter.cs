@@ -14,7 +14,7 @@ namespace STIN_News_Module.Logic.Filtering.Filters
                         returnData.Add(item);
                 }
                 }
-                return data;
+                return returnData;
         }
     }
 }

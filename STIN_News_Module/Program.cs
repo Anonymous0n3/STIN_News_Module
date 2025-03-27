@@ -1,4 +1,5 @@
 using STIN_News_Module.Logic;
+using STIN_News_Module.Logic.News;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,9 @@ EnvLoad.Load();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+//Load .env file
+EnvLoad.Load();
 
 var app = builder.Build();
 

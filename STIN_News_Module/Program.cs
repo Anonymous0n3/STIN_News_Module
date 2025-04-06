@@ -31,4 +31,18 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
+// REST endpoint using the DataModel from a separate file
+app.MapPost("/api/data", (DataModel data) =>
+{
+    // For demonstration, set the number of articles to 10.
+    data.setarticleNum(10);
+
+    return Results.Ok(new
+    {
+        message = "Data model received and processed",
+        receivedData = data,
+        articleCount = data.getarticleNum()
+    });
+});
+
 app.Run();

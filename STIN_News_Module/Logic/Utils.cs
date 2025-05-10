@@ -45,17 +45,13 @@ namespace STIN_News_Module.Logic
             return filteredData;
         }
 
-        public List<DataModel> saleRating(List<DataModel> data, int minRating)
+        public List<DataModel> sell(List<DataModel> data, int minRating)
         {
             foreach (var item in data)
             {
                 if (item.Rating >= minRating)
                 {
-                    item.Sale = 1;
-                }
-                else
-                {
-                    item.Sale = 0;
+                    data.Remove(item);
                 }
             }
             return data;

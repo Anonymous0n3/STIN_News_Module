@@ -41,4 +41,14 @@ app.MapGet("/Api/Logs", () =>
     return Results.Ok(LoggingService.GetLogs());
 });
 
+app.MapGet("/liststock", () =>
+{
+    LoggingService.AddLog("List stock requested");
+});
+
+app.MapGet("/salestock", () =>
+{
+    LoggingService.AddLog("Sale stock requested");
+});
+
 app.Run();

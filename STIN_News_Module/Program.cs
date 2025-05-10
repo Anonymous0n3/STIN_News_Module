@@ -1,6 +1,7 @@
 using STIN_News_Module.Logic;
 using STIN_News_Module.Logic.Filtering;
 using STIN_News_Module.Logic.JsonModel;
+using STIN_News_Module.Logic.Logging;
 using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,8 @@ builder.Services.AddRazorPages();
 
 //Load .env file
 EnvLoad.Load();
+
+LoggingService.AddLog("Loading .env file");
 
 var app = builder.Build();
 

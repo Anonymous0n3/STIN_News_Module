@@ -1,6 +1,6 @@
-﻿namespace STIN_News_Module.Logic.Logginf
+﻿namespace STIN_News_Module.Logic.Logging
 {
-    public static class LogStore
+    public static class LoggingService
     {
         private static List<string> logs = new();
         private static readonly object _lock = new();

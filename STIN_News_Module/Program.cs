@@ -35,4 +35,10 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
+app.MapGet("/Api/Logs", () =>
+{
+    LoggingService.AddLog("Logs requested");
+    return Results.Ok(LoggingService.GetLogs());
+});
+
 app.Run();

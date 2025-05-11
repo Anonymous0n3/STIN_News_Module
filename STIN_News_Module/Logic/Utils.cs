@@ -2,6 +2,7 @@
 using STIN_News_Module.Logic.AIStuff;
 using STIN_News_Module.Logic.Filtering;
 using STIN_News_Module.Logic.JsonModel;
+using STIN_News_Module.Logic.Logging;
 using STIN_News_Module.Logic.News;
 
 namespace STIN_News_Module.Logic
@@ -20,6 +21,7 @@ namespace STIN_News_Module.Logic
 
         public List<DataModel> doAllLogic(List<DataModel> data, int daysBehind)
         {
+            LoggingService.AddLog("Doing all logic with " + data.Count + " items");
             foreach (var item in data)
             {
                 double rating = item.Rating;
@@ -47,6 +49,7 @@ namespace STIN_News_Module.Logic
 
         public List<DataModel> sell(List<DataModel> data, int minRating)
         {
+            LoggingService.AddLog("Selling items with rating >= " + minRating);
             foreach (var item in data)
             {
                 if (item.Rating >= minRating)
@@ -59,6 +62,7 @@ namespace STIN_News_Module.Logic
 
         public int LimitToRange(int value, int inclusiveMinimum, int inclusiveMaximum)
         {
+            LoggingService.AddLog("Limiting value " + value + " to range [" + inclusiveMinimum + ", " + inclusiveMaximum + "]");
             if (value < inclusiveMinimum) { return inclusiveMinimum; }
             if (value > inclusiveMaximum) { return inclusiveMaximum; }
             return value;

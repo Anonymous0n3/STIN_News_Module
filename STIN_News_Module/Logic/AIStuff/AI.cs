@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using STIN_News_Module.Logic.Logging;
 
 namespace STIN_News_Module.Logic.AIStuff
 {
@@ -20,6 +21,7 @@ namespace STIN_News_Module.Logic.AIStuff
 
         public async Task<int> GetClasification(string text)
         {
+            LoggingService.AddLog("Getting AI classification for: " + text);
             Console.WriteLine(text);
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");

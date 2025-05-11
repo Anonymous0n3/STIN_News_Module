@@ -2,6 +2,7 @@
 using NewsAPI;
 using NewsAPI.Constants;
 using NewsAPI.Models;
+using STIN_News_Module.Logic.Logging;
 using System.Net;
 
 namespace STIN_News_Module.Logic.News
@@ -19,6 +20,7 @@ namespace STIN_News_Module.Logic.News
 
         public List<Article> returnNews(string q,int days)
         {
+            LoggingService.AddLog("Getting news for " + q + " for " + days + " days");
             var newsApiClient = new NewsApiClient(news_Api);
             var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
             {
@@ -32,6 +34,7 @@ namespace STIN_News_Module.Logic.News
             {
                 Console.WriteLine("Total Articels:" + articlesResponse.TotalResults);
                 
+                LoggingService.AddLog("Returning articles");
                 return articlesResponse.Articles;
             }
 

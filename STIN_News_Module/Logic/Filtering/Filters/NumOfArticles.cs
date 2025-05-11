@@ -1,4 +1,5 @@
 ﻿using STIN_News_Module.Logic.JsonModel;
+using STIN_News_Module.Logic.Logging;
 
 namespace STIN_News_Module.Logic.Filtering.Filters
 {
@@ -6,6 +7,7 @@ namespace STIN_News_Module.Logic.Filtering.Filters
     {
         public override List<DataModel> Execute(List<DataModel> data)
         {
+            LoggingService.AddLog("Executing NumOfArticles filter");
             List<DataModel> returnData = new List<DataModel>();
             for (int i = data.Count - 1; i >= 0; i--)
             {

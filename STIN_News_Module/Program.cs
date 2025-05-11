@@ -18,6 +18,8 @@ LoggingService.AddLog("Loading .env file");
 
 var app = builder.Build();
 
+var utils = new Utils();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -41,14 +43,36 @@ app.MapGet("/Api/Logs", () =>
     return Results.Ok(LoggingService.GetLogs());
 });
 
-app.MapGet("/liststock", () =>
+app.MapPost("/liststock", async (HttpRequest request) =>
 {
+    using var reader = new StreamReader(request.Body);
+    var body = await reader.ReadToEndAsync();
+
     LoggingService.AddLog("List stock requested");
+
+    var data = JSONLogic.Instance.deserializeJSON(body);
+
+    var backData = utils.doAllLogic(data, 7);
+
+
+    // Pøípadnì mùžete s daty dále pracovat nebo je vrátit jako odpovìï
+    return Results.Ok(backData);
 });
 
-app.MapGet("/salestock", () =>
+app.MapPost("/salestock", async (HttpRequest request) =>
 {
-    LoggingService.AddLog("Sale stock requested");
+    using var reader = new StreamReader(request.Body);
+    var body = await reader.ReadToEndAsync();
+
+    LoggingService.AddLog("List stock requested");
+
+    var data = JSONLogic.Instance.deserializeJSON(body);
+
+    var backData = utils.doAllLogic(data, 7);
+
+
+    // Pøípadnì mùžete s daty dále pracovat nebo je vrátit jako odpovìï
+    return Results.Ok(backData);
 });
 
 app.Run();

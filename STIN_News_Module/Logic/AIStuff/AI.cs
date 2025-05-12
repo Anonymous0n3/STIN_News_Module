@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using STIN_News_Module.Logic.Logging;
+using System.Text;
 
 namespace STIN_News_Module.Logic.AIStuff
 {
@@ -23,55 +24,51 @@ namespace STIN_News_Module.Logic.AIStuff
         {
             LoggingService.AddLog("Getting AI classification for: " + text);
             Console.WriteLine(text);
+
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
 
-            try { 
-                var response = await client.PostAsync(apiUrl, new StringContent(text));
+            var payload = new { inputs = text };
+            var json = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await client.PostAsync(apiUrl, content);
                 var result = await response.Content.ReadAsStringAsync();
 
-                var resultJson = JsonConvert.DeserializeObject<List<List<Sentiment>>>(result);
+                var resultJson = JsonConvert.DeserializeObject<List<Sentiment>>(result);
 
                 double positive = 0;
                 double negative = 0;
-                //Read all labels from resultJson
-                for (int i = 0; i < resultJson.Count; i++)
+
+                foreach (var sentiment in resultJson)
                 {
-                    for (int j = 0; j < resultJson[i].Count; j++)
-                    {
-                        
-                        if (resultJson[i][j].label.ToLower() == "positive")
-                        {
-                            positive = resultJson[i][j].score;
-                        }
-                        else if (resultJson[i][j].label.ToLower() == "negative")
-                        {
-                            negative = resultJson[i][j].score;
-                        }
-                    }
+                    if (sentiment.label.ToLower() == "positive")
+                        positive = sentiment.score;
+                    else if (sentiment.label.ToLower() == "negative")
+                        negative = sentiment.score;
                 }
 
                 if (positive > negative)
                 {
                     Console.WriteLine("Sentiment: +1");
-                    return 1 ;
+                    return 1;
                 }
                 else
                 {
                     Console.WriteLine("Sentiment: -1");
                     return 0;
                 }
-
-
-
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("Error: " + e.Message);
             }
 
             return 0;
         }
+
 
     }
 }

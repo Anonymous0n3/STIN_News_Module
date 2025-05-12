@@ -43,23 +43,7 @@ app.MapGet("/Api/Logs", () =>
     return Results.Ok(LoggingService.GetLogs());
 });
 
-app.MapPost("/liststock", async (HttpRequest request) =>
-{
-    using var reader = new StreamReader(request.Body);
-    var body = await reader.ReadToEndAsync();
-
-    LoggingService.AddLog("List stock requested");
-
-    var data = JSONLogic.Instance.deserializeJSON(body);
-
-    var backData = utils.doAllLogic(data, 7);
-
-
-    // Pøípadnì mùžete s daty dále pracovat nebo je vrátit jako odpovìï
-    return Results.Ok(backData);
-});
-
-app.MapPost("/salestock", async (HttpRequest request) =>
+app.MapPost("/rating", async (HttpRequest request) =>
 {
     using var reader = new StreamReader(request.Body);
     var body = await reader.ReadToEndAsync();

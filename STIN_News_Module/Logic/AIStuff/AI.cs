@@ -37,12 +37,22 @@ namespace STIN_News_Module.Logic.AIStuff
                 var response = await client.PostAsync(apiUrl, content);
                 var result = await response.Content.ReadAsStringAsync();
 
-                var resultJson = JsonConvert.DeserializeObject<List<Sentiment>>(result);
+                Console.WriteLine("API raw result: " + result); // pro debug
+
+                var resultJson = JsonConvert.DeserializeObject<List<List<Sentiment>>>(result);
+
+                // Vezmeme první (a jediný) výsledek
+                var sentiments = resultJson.FirstOrDefault();
+                if (sentiments == null || sentiments.Count == 0)
+                {
+                    Console.WriteLine("No sentiment data received.");
+                    return 0;
+                }
 
                 double positive = 0;
                 double negative = 0;
 
-                foreach (var sentiment in resultJson)
+                foreach (var sentiment in sentiments)
                 {
                     if (sentiment.label.ToLower() == "positive")
                         positive = sentiment.score;
@@ -68,6 +78,7 @@ namespace STIN_News_Module.Logic.AIStuff
 
             return 0;
         }
+
 
 
     }

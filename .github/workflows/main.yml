@@ -5,7 +5,7 @@ on:
     branches: [ master-dev ]
   pull_request:
     branches: [ master-dev ]
-  workflow_dispatch:  # ➕ umožní ruční spuštění z GitHubu
+  workflow_dispatch:  # umožní ruční spuštění
 
 jobs:
   test:
@@ -28,11 +28,11 @@ jobs:
 
     - name: Run tests with coverage
       run: |
-        dotnet test \
+        dotnet test STIN_News_Module \
           --no-build \
           /p:CollectCoverage=true \
-          /p:CoverletOutputFormat=opencover \
-          /p:CoverletOutput=./TestResults/coverage.xml
+          /p:CoverletOutput=TestResults/coverage.xml \
+          /p:CoverletOutputFormat=opencover
 
     - name: Install ReportGenerator
       run: dotnet tool install --global dotnet-reportgenerator-globaltool
@@ -40,7 +40,7 @@ jobs:
     - name: Generate coverage report
       run: |
         reportgenerator \
-          -reports:./**/TestResults/coverage.xml \
+          -reports:STIN_News_Module/TestResults/coverage.xml \
           -targetdir:coveragereport \
           -reporttypes:Html
 

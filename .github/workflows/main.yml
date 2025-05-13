@@ -2,9 +2,9 @@ name: Run Tests and Collect Code Coverage
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master-dev ]
   pull_request:
-    branches: [ main ]
+    branches: [ master-dev ]
 
 jobs:
   test:

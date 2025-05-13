@@ -54,9 +54,13 @@ app.MapPost("/rating", async (HttpRequest request) =>
 
     var data = JSONLogic.Instance.deserializeJSON(body);
 
-    var backData = await utils.doAllLogic(data, 7);
+    if (data == null)
+    {
+        return Results.BadRequest("Špatná data");
+    }
+        //var backData = await utils.doAllLogic(data, 7);
 
-    return Results.Ok(backData);
+        return Results.Ok(data);
 });
 
 app.Run();

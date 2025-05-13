@@ -18,8 +18,15 @@ namespace STIN_News_Module.Logic.JsonModel
 
         public List<DataModel> deserializeJSON(string json)
         {
-            LoggingService.AddLog("Deserializing JSON");
-            return JsonSerializer.Deserialize<List<DataModel>>(json);
+            try
+            {
+                LoggingService.AddLog("Deserializing JSON");
+                return JsonSerializer.Deserialize<List<DataModel>>(json);
+            } catch (Exception e) 
+            {
+                return null;   
+            }
+            
         }
     }
 }

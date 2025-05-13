@@ -5,6 +5,7 @@ using System.Linq;
 
 public class DummyFilter : FilterBase
 {
+
     public override List<DataModel> Execute(List<DataModel> data)
     {
         // Nastav všem položkám rating = 42 jako důkaz, že filtr byl spuštěn

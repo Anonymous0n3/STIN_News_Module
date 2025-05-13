@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35828.75 d17.13
+VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STIN_News_Module", "STIN_News_Module\STIN_News_Module.csproj", "{18B5CDEC-F14F-44E5-A904-7F33F82E1909}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STIN_News_Module_Test", "STIN_News_Module_Test\STIN_News_Module_Test.csproj", "{BC3C7716-839A-9BCB-7F8B-9839F7CC8E66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{18B5CDEC-F14F-44E5-A904-7F33F82E1909}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18B5CDEC-F14F-44E5-A904-7F33F82E1909}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18B5CDEC-F14F-44E5-A904-7F33F82E1909}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC3C7716-839A-9BCB-7F8B-9839F7CC8E66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC3C7716-839A-9BCB-7F8B-9839F7CC8E66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC3C7716-839A-9BCB-7F8B-9839F7CC8E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC3C7716-839A-9BCB-7F8B-9839F7CC8E66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

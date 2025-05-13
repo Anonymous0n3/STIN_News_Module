@@ -3,18 +3,16 @@ using STIN_News_Module.Logic.JsonModel;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace STIN_News_Module_Test
+public class DummyFilter : FilterBase
 {
-    public class DummyFilter : FilterBase
+
+    public override List<DataModel> Execute(List<DataModel> data)
     {
-        public override List<DataModel> Execute(List<DataModel> data)
+        // Nastav všem položkám rating = 42 jako důkaz, že filtr byl spuštěn
+        foreach (var item in data)
         {
-            // Nastav všem položkám rating = 42 jako důkaz, že filtr byl spuštěn
-            foreach (var item in data)
-            {
-                item.Rating = 42;
-            }
-            return data;
+            item.Rating = 42;
         }
+        return data;
     }
 }

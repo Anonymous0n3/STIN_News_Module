@@ -4,6 +4,7 @@ using STIN_News_Module.Logic.JsonModel;
 using STIN_News_Module.Logic.Logging;
 using System.Collections.Generic;
 
+//Testing comment for coverage test
 var builder = WebApplication.CreateBuilder(args);
 
 EnvLoad.Load();

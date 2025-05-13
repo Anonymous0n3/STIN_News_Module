@@ -1,4 +1,5 @@
 ﻿using STIN_News_Module.Logic.JsonModel;
+using STIN_News_Module.Logic.Logging;
 
 namespace STIN_News_Module.Logic.Filtering.Filters
 {
@@ -6,6 +7,7 @@ namespace STIN_News_Module.Logic.Filtering.Filters
     {
         public override List<DataModel> Execute(List<DataModel> data)
         {
+            LoggingService.AddLog("Executing NegativeRatingFilter");
             List<DataModel> returnData  = new List<DataModel>();
                 foreach (var item in data)
                 {
@@ -14,7 +16,7 @@ namespace STIN_News_Module.Logic.Filtering.Filters
                         returnData.Add(item);
                 }
                 }
-                return data;
+                return returnData;
         }
     }
 }

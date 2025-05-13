@@ -2,6 +2,7 @@
 using NewsAPI;
 using NewsAPI.Constants;
 using NewsAPI.Models;
+using STIN_News_Module.Logic.Logging;
 using System.Net;
 
 namespace STIN_News_Module.Logic.News
@@ -9,14 +10,17 @@ namespace STIN_News_Module.Logic.News
     public class News_Getting
     {
         private readonly string news_Api;
+        private static readonly Lazy<News_Getting> _instance = new Lazy<News_Getting>(() => new News_Getting());
+        public static News_Getting Instance => _instance.Value;
 
-        public News_Getting()
+        private News_Getting()
         {
             this.news_Api = Environment.GetEnvironmentVariable("NEWS_API_KEY");
         }
 
         public List<Article> returnNews(string q,int days)
         {
+            LoggingService.AddLog("Getting news for " + q + " for " + days + " days");
             var newsApiClient = new NewsApiClient(news_Api);
             var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
             {
@@ -28,8 +32,9 @@ namespace STIN_News_Module.Logic.News
 
             if (articlesResponse.Status == Statuses.Ok) 
             {
-                Console.WriteLine(articlesResponse.TotalResults);
+                Console.WriteLine("Total Articels:" + articlesResponse.TotalResults);
                 
+                LoggingService.AddLog("Returning articles");
                 return articlesResponse.Articles;
             }
 

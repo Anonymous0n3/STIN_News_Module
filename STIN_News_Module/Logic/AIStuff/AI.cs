@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using STIN_News_Module.Logic.Logging;
+using System.Text;
 
 namespace STIN_News_Module.Logic.AIStuff
 {
@@ -8,8 +10,10 @@ namespace STIN_News_Module.Logic.AIStuff
     {
         private readonly string apiKey;
         private readonly string apiUrl;
+        private static readonly Lazy<AI> _instance = new Lazy<AI>(() => new AI());
+        public static AI Instance => _instance.Value;
 
-        public AI()
+        private AI()
         {
             // Constructor
             apiKey = Environment.GetEnvironmentVariable("AI_API_KEY");
@@ -18,44 +22,64 @@ namespace STIN_News_Module.Logic.AIStuff
 
         public async Task<int> GetClasification(string text)
         {
+            LoggingService.AddLog("Getting AI classification for: " + text);
+            Console.WriteLine(text);
+
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
 
-            try { 
-                var response = await client.PostAsync(apiUrl, new StringContent(text));
+            var payload = new { inputs = text };
+            var json = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await client.PostAsync(apiUrl, content);
                 var result = await response.Content.ReadAsStringAsync();
+
+                Console.WriteLine("API raw result: " + result); // pro debug
 
                 var resultJson = JsonConvert.DeserializeObject<List<List<Sentiment>>>(result);
 
-                double sentimentValue = 0;
-                //Read all labels from resultJson
-                for (int i = 0; i < resultJson.Count; i++)
+                // Vezmeme první (a jediný) výsledek
+                var sentiments = resultJson.FirstOrDefault();
+                if (sentiments == null || sentiments.Count == 0)
                 {
-                    for (int j = 0; j < resultJson[i].Count; j++)
-                    {
-                        if (resultJson[i][j].label.ToLower() == "positive")
-                        {
-                            sentimentValue += resultJson[i][j].score;
-                        }
-                        else if (resultJson[i][j].label.ToLower() == "negative")
-                        {
-                            sentimentValue -= resultJson[i][j].score;
-                        }
-                    }
+                    Console.WriteLine("No sentiment data received.");
+                    return 0;
                 }
 
-                sentimentValue *= 10;
+                double positive = 0;
+                double negative = 0;
 
-                return (int)Math.Round(sentimentValue);
+                foreach (var sentiment in sentiments)
+                {
+                    if (sentiment.label.ToLower() == "positive")
+                        positive = sentiment.score;
+                    else if (sentiment.label.ToLower() == "negative")
+                        negative = sentiment.score;
+                }
 
+                if (positive > negative)
+                {
+                    Console.WriteLine("Sentiment: +1");
+                    return 1;
+                }
+                else
+                {
+                    Console.WriteLine("Sentiment: -1");
+                    return 0;
+                }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("Error: " + e.Message);
             }
 
             return 0;
         }
+
+
 
     }
 }

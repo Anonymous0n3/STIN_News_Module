@@ -1,10 +1,7 @@
 using STIN_News_Module.Logic;
 using STIN_News_Module.Logic.Filtering;
 using STIN_News_Module.Logic.JsonModel;
-using STIN_News_Module.Logic.Logging;
-using System.Collections.Generic;
 
-//Testing comment for coverage test
 var builder = WebApplication.CreateBuilder(args);
 
 EnvLoad.Load();
@@ -15,11 +12,7 @@ builder.Services.AddRazorPages();
 //Load .env file
 EnvLoad.Load();
 
-LoggingService.AddLog("Loading .env file");
-
 var app = builder.Build();
-
-var utils = new Utils();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -38,25 +31,18 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-
-app.MapGet("/Api/Logs", () =>
+// REST endpoint using the DataModel from a separate file
+app.MapPost("/api/data", (DataModel data) =>
 {
-    LoggingService.AddLog("Logs requested");
-    return Results.Ok(LoggingService.GetLogs());
-});
+    // For demonstration, set the number of articles to 10.
+    data.setarticleNum(10);
 
-app.MapPost("/rating", async (HttpRequest request) =>
-{
-    using var reader = new StreamReader(request.Body);
-    var body = await reader.ReadToEndAsync();
-
-    LoggingService.AddLog("List stock requested");
-
-    var data = JSONLogic.Instance.deserializeJSON(body);
-
-    var backData = utils.doAllLogic(data, 7);
-
-    return Results.Ok(backData);
+    return Results.Ok(new
+    {
+        message = "Data model received and processed",
+        receivedData = data,
+        articleCount = data.getarticleNum()
+    });
 });
 
 app.Run();

@@ -5,6 +5,7 @@ on:
     branches: [ master-dev ]
   pull_request:
     branches: [ master-dev ]
+  workflow_dispatch:  # ➕ umožní ruční spuštění z GitHubu
 
 jobs:
   test:
@@ -17,7 +18,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.0.x'  # Nebo jiná verze podle projektu
+        dotnet-version: '8.0.x'
 
     - name: Restore dependencies
       run: dotnet restore

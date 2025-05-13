@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using STIN_News_Module.Logic.Logging;
 using System.Text;
 
+//Nebude se testovat kvůli singletonu a tomu že to má limit
 namespace STIN_News_Module.Logic.AIStuff
 {
     public class AI

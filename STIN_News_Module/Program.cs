@@ -54,7 +54,7 @@ app.MapPost("/rating", async (HttpRequest request) =>
 
     var data = JSONLogic.Instance.deserializeJSON(body);
 
-    var backData = utils.doAllLogic(data, 7);
+    var backData = await utils.doAllLogic(data, 7);
 
     return Results.Ok(backData);
 });

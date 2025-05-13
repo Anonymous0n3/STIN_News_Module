@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace STIN_News_Module.Logic.Filtering
 {
-    public class FilterManager
+    public class FilterManager : IFilterManager
     {
         private List<FilterBase> filters = new List<FilterBase>();
         private static readonly Lazy<FilterManager> _instance = new Lazy<FilterManager>(() => new FilterManager());

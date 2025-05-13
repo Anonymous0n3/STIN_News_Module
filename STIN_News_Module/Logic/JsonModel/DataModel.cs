@@ -14,7 +14,7 @@ namespace STIN_News_Module.Logic.JsonModel
         [JsonPropertyName("rating")]
         public int Rating { get; set; }
 
-        [JsonPropertyName("sale")]
+        [JsonPropertyName("sell")]
         public int Sale { get; set; }
 
         private int numOfArticles = 0;

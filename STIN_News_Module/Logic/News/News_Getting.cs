@@ -5,9 +5,10 @@ using NewsAPI.Models;
 using STIN_News_Module.Logic.Logging;
 using System.Net;
 
+// Nelze testovat jelikož se jedná o singleton
 namespace STIN_News_Module.Logic.News
 {
-    public class News_Getting
+    public class News_Getting : INews_Getting
     {
         private readonly string news_Api;
         private static readonly Lazy<News_Getting> _instance = new Lazy<News_Getting>(() => new News_Getting());

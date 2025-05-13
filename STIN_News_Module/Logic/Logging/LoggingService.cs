@@ -1,4 +1,5 @@
-﻿namespace STIN_News_Module.Logic.Logging
+﻿//Netestuje se jelikož jsou to logy a jsou vidět že fungujou při běhu aplikace
+namespace STIN_News_Module.Logic.Logging
 {
     public static class LoggingService
     {

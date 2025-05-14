@@ -59,7 +59,7 @@ namespace STIN_News_Module.Logic
                 if (string.IsNullOrWhiteSpace(burzaBaseUrl) || string.IsNullOrWhiteSpace(port))
                 {
                     LoggingService.AddLog("BURZA_URL or PORT environment variable is not set.");
-                    return filteredData;
+                    return sell(filteredData);
                 }
 
                 try

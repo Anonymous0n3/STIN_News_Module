@@ -62,5 +62,18 @@ namespace STIN_News_Module_Test
             Assert.Equal(original[0].Rating, deserialized[0].Rating);
             Assert.Equal(original[0].Sale, deserialized[0].Sale);
         }
+
+        [Fact]
+        public void DeserializeJSON_ReturnsNull_WhenInvalidJson()
+        {
+            // Arrange
+            string json = "[{\"name\":,\"date\":2023,\"rating\":7,\"sell\":1}]";
+
+            // Act
+            var result = JSONLogic.Instance.deserializeJSON(json);
+
+            // Assert
+            Assert.Null(result);
+        }
     }
 }

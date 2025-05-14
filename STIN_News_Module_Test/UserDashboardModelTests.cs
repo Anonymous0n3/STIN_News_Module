@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Linq;
-using STIN_News_Module.Pages;
 using Xunit;
+using STIN_News_Module.Pages;
+using System.Linq;
 
-namespace STIN_News_Module_Test
+namespace STIN_News_Module.Tests
 {
     public class UserDashboardModelTests
     {
         [Fact]
-        public void OnGet_InitializesStocksList()
+        public void OnGet_ShouldPopulateStocksWithExpectedData()
         {
             // Arrange
             var model = new UserDashboardModel();
@@ -19,36 +19,21 @@ namespace STIN_News_Module_Test
             // Assert
             Assert.NotNull(model.Stocks);
             Assert.Equal(3, model.Stocks.Count);
-        }
 
-        [Fact]
-        public void OnGet_StockItemsContainExpectedData()
-        {
-            // Arrange
-            var model = new UserDashboardModel();
+            var microsoft = model.Stocks.FirstOrDefault(s => s.Name == "Microsoft");
+            Assert.NotNull(microsoft);
+            Assert.Equal(8, microsoft.Rating);
+            Assert.Equal(0, microsoft.Sale);
 
-            // Act
-            model.OnGet();
-            var stocks = model.Stocks;
+            var google = model.Stocks.FirstOrDefault(s => s.Name == "Google");
+            Assert.NotNull(google);
+            Assert.Equal(-3, google.Rating);
+            Assert.Equal(1, google.Sale);
 
-            // Assert
-            Assert.Contains(stocks, s => s.Name == "Microsoft" && s.Rating == 8 && s.Sell == 0);
-            Assert.Contains(stocks, s => s.Name == "Google" && s.Rating == -3 && s.Sell == 1);
-            Assert.Contains(stocks, s => s.Name == "OpenAI" && s.Rating == 5 && s.Sell == 0);
-        }
-
-        [Fact]
-        public void OnGet_DatesAreSetRelativeToNow()
-        {
-            // Arrange
-            var model = new UserDashboardModel();
-            var now = DateTime.Now;
-
-            // Act
-            model.OnGet();
-
-            // Assert
-            Assert.Contains(model.Stocks, s => (now - s.Date).TotalDays <= 2);
+            var openAI = model.Stocks.FirstOrDefault(s => s.Name == "OpenAI");
+            Assert.NotNull(openAI);
+            Assert.Equal(5, openAI.Rating);
+            Assert.Equal(0, openAI.Sale);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿//Netestuje se jelikož jsou to logy a jsou vidět že fungujou při běhu aplikace
+//Nejde testovat jelikož se jedná o statickou metodu
 namespace STIN_News_Module.Logic.Logging
 {
     public static class LoggingService

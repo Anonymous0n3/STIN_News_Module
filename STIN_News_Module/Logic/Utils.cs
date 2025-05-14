@@ -4,6 +4,7 @@ using STIN_News_Module.Logic.Filtering;
 using STIN_News_Module.Logic.JsonModel;
 using STIN_News_Module.Logic.Logging;
 using STIN_News_Module.Logic.News;
+using System.Text.Json;
 
 namespace STIN_News_Module.Logic
 {
@@ -93,5 +94,32 @@ namespace STIN_News_Module.Logic
             if (value > inclusiveMaximum) { return inclusiveMaximum; }
             return value;
         }
+
+        public async Task<List<DataModel>> GetFromBurzaAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string? burzaBaseUrl = Environment.GetEnvironmentVariable("BURZA_URL");
+
+                if (string.IsNullOrWhiteSpace(burzaBaseUrl))
+                    throw new InvalidOperationException("BURZA_URL environment variable is not set.");
+
+                string fullUrl = $"{burzaBaseUrl.TrimEnd('/')}/listStock-static";
+
+                HttpResponseMessage response = await client.PostAsync(fullUrl, null);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"Request to Burza failed with status code {response.StatusCode}");
+                }
+
+                string json = await response.Content.ReadAsStringAsync();
+
+                List<DataModel>? result = JSONLogic.Instance.deserializeJSON(json);
+
+                return result ?? new List<DataModel>();
+            }
+        }
+
     }
 }

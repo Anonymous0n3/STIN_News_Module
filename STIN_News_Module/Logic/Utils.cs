@@ -60,12 +60,16 @@ namespace STIN_News_Module.Logic
                 {
                     using (HttpClient client = new HttpClient())
                     {
-                        string fullUrl = $"{burzaBaseUrl.TrimEnd('/')}/saleStock-static";
+                        string fullUrl = $"{burzaBaseUrl.TrimEnd('/')}/salestock";
                         HttpResponseMessage response = await client.PostAsJsonAsync(fullUrl, filteredData);
+                        var json = await response.Content.ReadAsStringAsync();
+                        List<DataModel>? result = JSONLogic.Instance.deserializeJSON(json);
+                        
 
-                        if (response.IsSuccessStatusCode)
+                    if (response.IsSuccessStatusCode)
                         {
                             LoggingService.AddLog("Data successfully sent to burza.");
+                            return sell(result);
                         }
                         else
                         {
@@ -104,7 +108,7 @@ namespace STIN_News_Module.Logic
                 if (string.IsNullOrWhiteSpace(burzaBaseUrl))
                     throw new InvalidOperationException("BURZA_URL environment variable is not set.");
 
-                string fullUrl = $"{burzaBaseUrl.TrimEnd('/')}/listStock-static";
+                string fullUrl = $"{burzaBaseUrl.TrimEnd('/')}/liststock";
 
                 HttpResponseMessage response = await client.PostAsync(fullUrl, null);
 

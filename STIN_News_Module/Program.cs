@@ -36,12 +36,6 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-
-app.MapGet("/Api/Logs", () =>
-{
-    return Results.Ok(LoggingService.GetLogs());
-});
-
 app.MapPost("/rating", async (HttpRequest request) =>
 {
     using var reader = new StreamReader(request.Body);

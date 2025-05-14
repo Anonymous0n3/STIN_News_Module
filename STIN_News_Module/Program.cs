@@ -1,8 +1,6 @@
 using STIN_News_Module.Logic;
-using STIN_News_Module.Logic.Filtering;
 using STIN_News_Module.Logic.JsonModel;
 using STIN_News_Module.Logic.Logging;
-using System.Collections.Generic;
 
 //Testing comment for coverage test
 var builder = WebApplication.CreateBuilder(args);
@@ -41,7 +39,6 @@ app.MapRazorPages();
 
 app.MapGet("/Api/Logs", () =>
 {
-    LoggingService.AddLog("Logs requested");
     return Results.Ok(LoggingService.GetLogs());
 });
 

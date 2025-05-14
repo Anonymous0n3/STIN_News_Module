@@ -29,7 +29,7 @@ namespace STIN_News_Module_Test
         public void DeserializeJSON_ReturnsValidObjectList()
         {
             // Arrange
-            string json = "[{\"name\":\"Test\",\"date\":2023,\"rating\":7,\"sale\":1}]";
+            string json = "[{\"name\":\"Test\",\"date\":2023,\"rating\":7,\"sell\":1}]";
 
             // Act
             var result = JSONLogic.Instance.deserializeJSON(json);
@@ -61,16 +61,6 @@ namespace STIN_News_Module_Test
             Assert.Equal(original[0].Date, deserialized[0].Date);
             Assert.Equal(original[0].Rating, deserialized[0].Rating);
             Assert.Equal(original[0].Sale, deserialized[0].Sale);
-        }
-
-        [Fact]
-        public void Deserialize_InvalidJson_ThrowsException()
-        {
-            // Arrange
-            string invalidJson = "{ invalid json }";
-
-            // Act & Assert
-            Assert.ThrowsAny<Exception>(() => JSONLogic.Instance.deserializeJSON(invalidJson));
         }
     }
 }

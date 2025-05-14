@@ -24,6 +24,7 @@ namespace STIN_News_Module.Logic.JsonModel
                 return JsonSerializer.Deserialize<List<DataModel>>(json);
             } catch (Exception e) 
             {
+                LoggingService.AddLog("Error deserializing JSON: " + e.Message);
                 return null;   
             }
             

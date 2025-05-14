@@ -60,7 +60,7 @@ app.MapPost("/rating", async (HttpRequest request) =>
     }
         var backData = await utils.doAllLogic(data, 7);
 
-        return Results.Ok(data);
+        return Results.Ok(backData);
 });
 
 app.Run();

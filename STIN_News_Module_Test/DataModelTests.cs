@@ -57,7 +57,7 @@ namespace STIN_News_Module_Test
             Assert.Contains("\"name\":\"SerializedItem\"", json);
             Assert.Contains("\"date\":2023", json);
             Assert.Contains("\"rating\":5", json);
-            Assert.Contains("\"sale\":1", json);
+            Assert.Contains("\"sell\":1", json);
         }
 
         [Fact]

@@ -40,15 +40,15 @@ namespace STIN_News_Module_Test
             var utils = new Utils();
             var data = new List<DataModel>
     {
-        new DataModel { Name = "A", Rating = 5 },
-        new DataModel { Name = "B", Rating = 8 },
-        new DataModel { Name = "C", Rating = 10 }
+        new DataModel { Name = "A", Sale = 0 },
+        new DataModel { Name = "B", Sale = 1 },
+        new DataModel { Name = "C", Sale = 1 }
     };
 
             var result = utils.sell(data);
 
             Assert.Equal(1, result.Count);
-            Assert.DoesNotContain(result, item => item.Rating >= 5);
+            Assert.DoesNotContain(result, item => item.Sale == 1);
         }
 
         [Fact]
@@ -57,8 +57,8 @@ namespace STIN_News_Module_Test
             var utils = new Utils();
             var data = new List<DataModel>
     {
-        new DataModel { Name = "X", Rating = 3 },
-        new DataModel { Name = "Y", Rating = 6 }
+        new DataModel { Name = "X", Sale = 0 },
+        new DataModel { Name = "Y", Sale = 0 }
     };
 
             var result = utils.sell(data);

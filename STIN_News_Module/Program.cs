@@ -58,7 +58,7 @@ app.MapPost("/rating", async (HttpRequest request) =>
     {
         return Results.BadRequest("Špatná data");
     }
-        //var backData = await utils.doAllLogic(data, 7);
+        var backData = await utils.doAllLogic(data, 7);
 
         return Results.Ok(data);
 });

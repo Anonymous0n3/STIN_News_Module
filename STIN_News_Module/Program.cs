@@ -47,7 +47,7 @@ app.MapPost("/rating", async (HttpRequest request) =>
     using var reader = new StreamReader(request.Body);
     var body = await reader.ReadToEndAsync();
 
-    LoggingService.AddLog("List stock requested");
+    LoggingService.AddLog("Rating requested");
 
     var data = JSONLogic.Instance.deserializeJSON(body);
 
@@ -55,8 +55,8 @@ app.MapPost("/rating", async (HttpRequest request) =>
     {
         return Results.BadRequest("Špatná data");
     }
-        var backData = await utils.doAllLogic(data, 7);
 
+        var backData = await utils.doAllLogic(data, 7);
         return Results.Ok(backData);
 });
 

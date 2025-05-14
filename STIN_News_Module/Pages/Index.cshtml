@@ -10,7 +10,8 @@
     <!-- LOGY -->
     <div class="col-md-6">
         <h4>Živé logy systému</h4>
-        <div id="logContainer" style="background-color: #111; color: #0f0; padding: 10px; height: 400px; overflow-y: scroll; font-family: monospace;">
+        <div id="logContainer"
+            style="background-color: #111; color: #0f0; padding: 10px; height: 400px; overflow-y: scroll; font-family: monospace;">
             <p>[12:00:01] Volám endpoint /getStockData</p>
             <p>[12:00:01] Posílám JSON: ["Microsoft","Google"]</p>
             <p>[12:00:02] Získaná data: {...}</p>
@@ -43,6 +44,11 @@
                 }
             </tbody>
         </table>
+        <div style="margin-top: 20px; text-align: center;">
+            <form method="post" asp-page-handler="Add">
+                <button type="submit" class="btn btn-primary">tlacitko</button>
+            </form>
+        </div>
     </div>
 </div>
 

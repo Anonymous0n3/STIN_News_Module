@@ -37,7 +37,10 @@
                 {
                     <tr>
                         <td>@stock.Name</td>
-                        <td>@stock.Date.ToString("dd.MM.yyyy")</td>
+                        @{
+                            var date = DateTimeOffset.FromUnixTimeSeconds(stock.Date).DateTime;
+                        }
+                        <td>@date.ToString("dd.MM.yyyy HH:mm:ss")</td>
                         <td>@stock.Rating</td>
                         <td>@(stock.Sale == 1 ? "Prodat" : "Držet")</td>
                     </tr>

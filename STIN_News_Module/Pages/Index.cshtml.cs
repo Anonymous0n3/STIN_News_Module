@@ -16,9 +16,9 @@ namespace STIN_News_Module.Pages
             // Zde můžeš napojit reálná data z API, databáze nebo souboru
             Stocks = new List<DataModel>
             {
-                new DataModel { Name = "Microsoft", Date = 138723, Rating = 8, Sale = 0 },
-                new DataModel { Name = "Google", Date = 5273874, Rating = -3, Sale = 1 },
-                new DataModel { Name = "OpenAI", Date = 24765, Rating = 5, Sale = 0 },
+                new DataModel { Name = "Microsoft", Date = 12345678, Rating = 8, Sale = 0 },
+                new DataModel { Name = "Google", Date = 12345678, Rating = -3, Sale = 1 },
+                new DataModel { Name = "OpenAI", Date = 12345678, Rating = 5, Sale = 0 },
             };
         }
 
@@ -28,15 +28,6 @@ namespace STIN_News_Module.Pages
             List<DataModel> stocks = utils.GetFromBurzaAsync().Result;
             Stocks = utils.doAllLogic(stocks, 7).Result;
 
-        }
-
-
-        public class StockItem
-        {
-            public string Name { get; set; }
-            public DateTime Date { get; set; }
-            public int Rating { get; set; }
-            public int Sell { get; set; }
         }
     }
 }

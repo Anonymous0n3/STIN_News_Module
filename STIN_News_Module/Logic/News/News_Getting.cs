@@ -19,7 +19,7 @@ namespace STIN_News_Module.Logic.News
             this.news_Api = Environment.GetEnvironmentVariable("NEWS_API_KEY");
         }
 
-        public List<Article> returnNews(string q,int days)
+        public List<Article> returnNews(string q, int days)
         {
             LoggingService.AddLog("Getting news for " + q + " for " + days + " days");
             var newsApiClient = new NewsApiClient(news_Api);

@@ -12,7 +12,7 @@ namespace STIN_News_Module.Logic.Filtering.Filters
             for (int i = data.Count - 1; i >= 0; i--)
             {
                 Console.WriteLine("Num of articles: " + data[i].getarticleNum());
-                if (data[i].getarticleNum() >= 10)
+                if (data[i].getarticleNum() >= Int32.Parse(Environment.GetEnvironmentVariable("MIN_ARTICLE_NUM")))
                 {
                     returnData.Add(data[i]);
                 }

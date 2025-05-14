@@ -34,31 +34,24 @@ namespace STIN_News_Module.Logic
                     articles.RemoveRange(10, articles.Count - 10);
                 }
 
-                foreach (var article in articles)
-                {
-                    rating += await AI.Instance.GetClasification(article.Description);
+                if (Environment.GetEnvironmentVariable("DEVELOPMENT_MODE") == "False") {
+                    LoggingService.AddLog("Rating " + item.Name + " with " + articles.Count + " articles");
+                    foreach (var article in articles)
+                    {
+                        rating += await AI.Instance.GetClasification(article.Description);
+                    }
                 }
-
                 Console.WriteLine("Rating: " + rating);
                 rating = (rating / MAX_ARTICLES) * 10;
                 item.Rating = LimitToRange((int)Math.Round(rating), -10, 10);
             }
 
             List<DataModel> filteredData = FilterManager.Instance.ExecuteAllFilters(data);
-
-            if (Environment.GetEnvironmentVariable("DEVELOPMENT_MODE") == "True")
-            {
-                LoggingService.AddLog("Development mode is on, skipping sending data to burza");
-                return sell(filteredData);
-            }
-            else
-            {
                 string? burzaBaseUrl = Environment.GetEnvironmentVariable("BURZA_URL");
-                string? port = Environment.GetEnvironmentVariable("PORT");
 
-                if (string.IsNullOrWhiteSpace(burzaBaseUrl) || string.IsNullOrWhiteSpace(port))
+                if (string.IsNullOrWhiteSpace(burzaBaseUrl))
                 {
-                    LoggingService.AddLog("BURZA_URL or PORT environment variable is not set.");
+                    LoggingService.AddLog("BURZA_URL environment variable is not set.");
                     return sell(filteredData);
                 }
 
@@ -66,7 +59,7 @@ namespace STIN_News_Module.Logic
                 {
                     using (HttpClient client = new HttpClient())
                     {
-                        string fullUrl = $"{burzaBaseUrl.TrimEnd('/')}:{port}/salestock";
+                        string fullUrl = $"{burzaBaseUrl.TrimEnd('/')}/saleStock-static";
                         HttpResponseMessage response = await client.PostAsJsonAsync(fullUrl, filteredData);
 
                         if (response.IsSuccessStatusCode)
@@ -83,7 +76,6 @@ namespace STIN_News_Module.Logic
                 {
                     LoggingService.AddLog("Error while sending data to burza: " + ex.Message);
                 }
-            }
             return sell(filteredData);
         }
 

@@ -14,7 +14,7 @@ namespace STIN_News_Module_Test
             var data = new List<DataModel>
             {
                 new DataModel { Name = "Positive", Rating = 3 },
-                new DataModel { Name = "Zero", Rating = 0 },
+                new DataModel { Name = "Zero", Rating = -1 },
                 new DataModel { Name = "Negative", Rating = -2 }
             };
 

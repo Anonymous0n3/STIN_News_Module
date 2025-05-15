@@ -5,11 +5,22 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:  # umožňuje ruční spuštění workflow
+  workflow_dispatch:
 
 jobs:
-  build:
+  test-and-coverage:
     runs-on: ubuntu-latest
+    env:
+      AI_API_KEY: ${{ secrets.AI_API_KEY }}
+      AI_API_KEY_TEST_1_FULL: ${{ secrets.AI_API_KEY_TEST_1_FULL }}
+      AI_API_URL: ${{ secrets.AI_API_URL }}
+      BURZA_URL: ${{ secrets.BURZA_URL }}
+      DEVELOPMENT_MODE: ${{ secrets.DEVELOPMENT_MODE }}
+      MAX_ARTICLES: ${{ secrets.MAX_ARTICLES }}
+      MIN_ARTICLE_NUM: ${{ secrets.MIN_ARTICLE_NUM }}
+      NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+      NUM_OF_DAYS: ${{ secrets.NUM_OF_DAYS }}
+      PORT: ${{ secrets.PORT }}
 
     steps:
     - name: Checkout code
@@ -18,16 +29,16 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.0.x'  # změň podle verze .NET, kterou používáš
+        dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore STIN_News_Module.sln
+      run: dotnet restore STIN_News_Module_Test/STIN_News_Module_Test.csproj
 
-    - name: Build solution
-      run: dotnet build STIN_News_Module.sln --no-restore --configuration Release
+    - name: Build tests
+      run: dotnet build STIN_News_Module_Test/STIN_News_Module_Test.csproj --configuration Release --no-restore
 
     - name: Run tests with coverage
-      run: dotnet test STIN_News_Module.sln --no-build --configuration Release --collect:"XPlat Code Coverage"
+      run: dotnet test STIN_News_Module_Test/STIN_News_Module_Test.csproj --no-build --configuration Release --collect:"XPlat Code Coverage"
 
     - name: Generate coverage report
       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4

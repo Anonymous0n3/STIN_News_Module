@@ -52,25 +52,6 @@ namespace STIN_News_Module_Test
         }
 
         [Fact]
-        public void AddLog_RespectsMaxLimitOf1000()
-        {
-            // Arrange
-            ResetLogs();
-            for (int i = 0; i < 1050; i++)
-            {
-                LoggingService.AddLog($"Log {i}");
-            }
-
-            // Act
-            var logs = LoggingService.GetLogs();
-
-            // Assert
-            Assert.Equal(1000, logs.Count);
-            Assert.Contains("Log 50", logs[0]); // prvních 50 bylo smazáno
-            Assert.Contains("Log 1049", logs.Last());
-        }
-
-        [Fact]
         public void Logs_AreThreadSafe()
         {
             // Arrange

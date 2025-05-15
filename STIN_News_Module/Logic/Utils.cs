@@ -43,7 +43,7 @@ namespace STIN_News_Module.Logic
                     }
                 }
                 LoggingService.AddLog("Rating: " + rating);
-                rating = (rating / MAX_ARTICLES) * 10;
+                //rating = (rating / MAX_ARTICLES) * 10;
                 item.Rating = LimitToRange((int)Math.Round(rating), -10, 10);
             }
 

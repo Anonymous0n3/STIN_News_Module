@@ -1,40 +1,42 @@
-﻿
-using NewsAPI;
-using NewsAPI.Constants;
+﻿using NewsAPI.Constants;
 using NewsAPI.Models;
+using NewsAPI;
 using STIN_News_Module.Logic.Logging;
-using System.Net;
+using STIN_News_Module.Logic.News;
 
-// Nelze testovat jelikož se jedná o singleton
-namespace STIN_News_Module.Logic.News
-{
-    public class News_Getting : INews_Getting
+namespace STIN_News_Module{
+    public class News_Getting : INewsGetting
     {
-        private readonly string news_Api;
-        private static readonly Lazy<News_Getting> _instance = new Lazy<News_Getting>(() => new News_Getting());
+        private readonly INewsApiClient _newsApiClient;
+
+        private static readonly Lazy<News_Getting> _instance = new Lazy<News_Getting>(() =>
+            new News_Getting(new NewsApiClientWrapper(Environment.GetEnvironmentVariable("NEWS_API_KEY")))
+        );
+
         public static News_Getting Instance => _instance.Value;
 
-        private News_Getting()
+        // Konstruktor pro injekci
+        public News_Getting(INewsApiClient client)
         {
-            this.news_Api = Environment.GetEnvironmentVariable("NEWS_API_KEY");
+            _newsApiClient = client;
         }
 
         public List<Article> returnNews(string q, int days)
         {
             LoggingService.AddLog("Getting news for " + q + " for " + days + " days");
-            var newsApiClient = new NewsApiClient(news_Api);
-            var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
+
+            var request = new EverythingRequest
             {
                 Q = q,
-                SortBy = SortBys.Popularity,
-                Language = Languages.EN,
+                SortBy = NewsAPI.Constants.SortBys.Popularity,
+                Language = NewsAPI.Constants.Languages.EN,
                 From = DateTime.Now.AddDays(-days),
-            });
+            };
 
-            if (articlesResponse.Status == Statuses.Ok) 
+            var articlesResponse = _newsApiClient.GetEverything(request);
+
+            if (articlesResponse.Status == NewsAPI.Constants.Statuses.Ok)
             {
-                Console.WriteLine("Total Articels:" + articlesResponse.TotalResults);
-                
                 LoggingService.AddLog("Returning " + articlesResponse.TotalResults + " articles");
                 return articlesResponse.Articles;
             }

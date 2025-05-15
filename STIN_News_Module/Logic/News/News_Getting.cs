@@ -35,7 +35,7 @@ namespace STIN_News_Module.Logic.News
             {
                 Console.WriteLine("Total Articels:" + articlesResponse.TotalResults);
                 
-                LoggingService.AddLog("Returning articles");
+                LoggingService.AddLog("Returning " + articlesResponse.TotalResults + " articles");
                 return articlesResponse.Articles;
             }
 

@@ -11,7 +11,7 @@ namespace STIN_News_Module.Logic.Filtering.Filters
             List<DataModel> returnData  = new List<DataModel>();
                 foreach (var item in data)
                 {
-                    if (item.Rating > 0)
+                    if (item.Rating >= 0)
                     {
                         returnData.Add(item);
                 }

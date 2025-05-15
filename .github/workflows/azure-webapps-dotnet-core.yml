@@ -89,7 +89,7 @@ jobs:
   deploy:
     name: 🚀 Deploy to Azure
     runs-on: windows-latest
-    needs: build
+    needs: test-and-coverage
 
     environment:
       name: 'Development'

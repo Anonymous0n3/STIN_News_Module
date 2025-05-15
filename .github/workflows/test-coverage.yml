@@ -1,10 +1,10 @@
-name: .NET Test & Coverage
+name: .NET Test Coverage
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -14,21 +14,21 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup .NET
+    - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.0.x'  # Nebo jiná verze, kterou používáš
+        dotnet-version: '8.0.x' # uprav na verzi .NET, kterou používáš
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore STIN_News_Module.sln
 
     - name: Build solution
-      run: dotnet build --no-restore
+      run: dotnet build STIN_News_Module.sln --no-restore --configuration Release
 
     - name: Run tests with coverage
-      run: dotnet test --no-build --collect:"XPlat Code Coverage"
+      run: dotnet test STIN_News_Module.sln --no-build --configuration Release --collect:"XPlat Code Coverage"
 
-    - name: Report coverage
+    - name: Generate coverage report
       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
       with:
         reports: '**/coverage.cobertura.xml'

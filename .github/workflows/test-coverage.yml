@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:  # umožňuje ruční spuštění workflow
 
 jobs:
   build:
@@ -17,7 +18,7 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.0.x' # uprav na verzi .NET, kterou používáš
+        dotnet-version: '8.0.x'  # změň podle verze .NET, kterou používáš
 
     - name: Restore dependencies
       run: dotnet restore STIN_News_Module.sln

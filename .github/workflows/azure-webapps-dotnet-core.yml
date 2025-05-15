@@ -26,7 +26,9 @@ env:
 
 on:
   push:
-    branches: [ "master", "DanielSpousta-test-and-deployment" ]
+    branches: 
+              -master
+              -DanielSpousta-test-and-deployment
   workflow_dispatch:
 
 permissions:

@@ -19,7 +19,7 @@ env:
 
 on:
   push:
-    branches: [ "master", "DanielSpousta-test-and-deployment" ]
+    branches: [ "master" ]
   workflow_dispatch:
 
 permissions:
@@ -54,7 +54,7 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: dotnet-app
+          name: .net-app
           path: ./publish_output
 
   deploy:
@@ -79,7 +79,7 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ./artifact
+          package: ./publish_output
 
   test-and-coverage:
     runs-on: windows-latest

@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace STIN_News_Module.Logic.JsonModel
 {
-    public class JSONLogic
+    public class JSONLogic : IJSONLogic
     {
         private static readonly Lazy<JSONLogic> _instance = new Lazy<JSONLogic>(() => new JSONLogic());
         private JSONLogic() { }

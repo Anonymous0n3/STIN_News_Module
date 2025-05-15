@@ -16,7 +16,8 @@ namespace STIN_News_Module_Test
             var testData = new List<DataModel>
         {
             new DataModel { Name = "X", Rating = 0 },
-            new DataModel { Name = "Y", Rating = 1 }
+            new DataModel { Name = "Y", Rating = 1 },
+            new DataModel { Name = "Z", Rating = 1, Sale = 1 }
         };
 
             var manager = FilterManager.Instance;
@@ -25,7 +26,7 @@ namespace STIN_News_Module_Test
             var result = manager.ExecuteAllFilters(testData);
 
             // Assert
-            Assert.All(result, item => Assert.Equal(42, item.Rating));
+            Assert.Equal(0, result.Count); // Očekáváme 0 položek, protože nic nemá articles
         }
 
         [Fact]

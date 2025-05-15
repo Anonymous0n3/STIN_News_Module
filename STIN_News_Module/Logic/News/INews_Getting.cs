@@ -1,8 +1,8 @@
 ﻿using NewsAPI.Models;
 
-namespace STIN_News_Module.Logic.News
+namespace STIN_News_Module
 {
-    public interface INews_Getting
+    public interface INewsGetting
     {
         List<Article> returnNews(string q, int days);
     }

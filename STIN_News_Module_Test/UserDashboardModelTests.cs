@@ -3,7 +3,7 @@ using Xunit;
 using STIN_News_Module.Pages;
 using System.Linq;
 
-namespace STIN_News_Module.Tests
+namespace STIN_News_Module_Test
 {
     public class UserDashboardModelTests
     {

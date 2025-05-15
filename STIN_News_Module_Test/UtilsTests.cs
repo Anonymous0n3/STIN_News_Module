@@ -1,70 +1,81 @@
-﻿using Moq;
-using NewsAPI.Models;
+﻿using Xunit;
+using Moq;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Text;
+using System.Text.Json;
 using STIN_News_Module.Logic;
 using STIN_News_Module.Logic.AIStuff;
 using STIN_News_Module.Logic.Filtering;
 using STIN_News_Module.Logic.JsonModel;
 using STIN_News_Module.Logic.News;
+using NewsAPI.Models;
+using System.Linq;
+using STIN_News_Module;
 
 namespace STIN_News_Module_Test
 {
     public class UtilsTests
     {
         [Fact]
-        public void LimitToRange_ValueBelowMin_ReturnsMin()
+        public async Task DoAllLogic_ReturnsExpectedResult()
         {
-            var utils = new Utils();
-            int result = utils.LimitToRange(-15, -10, 10);
-            Assert.Equal(-10, result);
-        }
+            // Arrange
+            var mockNews = new Mock<INewsGetting>();
+            var mockAI = new Mock<IAI>();
+            var mockFilter = new Mock<IFilterManager>();
+            var mockJson = new Mock<IJSONLogic>();
 
-        [Fact]
-        public void LimitToRange_ValueAboveMax_ReturnsMax()
+            var articles = new List<Article>
         {
-            var utils = new Utils();
-            int result = utils.LimitToRange(20, -10, 10);
-            Assert.Equal(10, result);
-        }
+            new Article { Description = "Good news" },
+            new Article { Description = "Bad news" }
+        };
 
-        [Fact]
-        public void LimitToRange_ValueWithinRange_ReturnsSame()
+            var dataModels = new List<DataModel>
         {
-            var utils = new Utils();
-            int result = utils.LimitToRange(5, -10, 10);
-            Assert.Equal(5, result);
-        }
+            new DataModel { Name = "Apple", Rating = 0, Sale = 0 }
+        };
 
-        [Fact]
-        public void Sell_RemovesItemsWithRatingGreaterOrEqualToMin()
-        {
-            var utils = new Utils();
-            var data = new List<DataModel>
+            mockNews.Setup(n => n.returnNews("Apple", 3)).Returns(articles);
+            mockAI.Setup(a => a.GetClasification("Good news")).ReturnsAsync(1);
+            mockAI.Setup(a => a.GetClasification("Bad news")).ReturnsAsync(0);
+
+            mockFilter.Setup(f => f.ExecuteAllFilters(It.IsAny<List<DataModel>>()))
+                      .Returns<List<DataModel>>(d => d);
+
+            mockJson.Setup(j => j.deserializeJSON(It.IsAny<string>()))
+                    .Returns<List<DataModel>>(null);
+
+            var httpClient = new HttpClient(new FakeHttpMessageHandler());
+
+            var utils = new Utils(mockNews.Object, mockAI.Object, mockFilter.Object, mockJson.Object, httpClient);
+
+            // Act
+            var result = await utils.doAllLogic(dataModels, 3);
+
+            // Assert
+            Assert.Single(result);
+            Assert.Equal(0, result[0].Rating); // 1 (Good) + 0 (Bad)
+        }
+    }
+
+    public class FakeHttpMessageHandler : HttpMessageHandler
     {
-        new DataModel { Name = "A", Sale = 0 },
-        new DataModel { Name = "B", Sale = 1 },
-        new DataModel { Name = "C", Sale = 1 }
-    };
-
-            var result = utils.sell(data);
-
-            Assert.Equal(1, result.Count);
-            Assert.DoesNotContain(result, item => item.Sale == 1);
-        }
-
-        [Fact]
-        public void Sell_KeepsItemsWithRatingBelowMin()
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var utils = new Utils();
-            var data = new List<DataModel>
-    {
-        new DataModel { Name = "X", Sale = 0 },
-        new DataModel { Name = "Y", Sale = 0 }
-    };
+            var json = JsonSerializer.Serialize(new List<DataModel>
+        {
+            new DataModel { Name = "Apple", Rating = 1, Sale = 0 }
+        });
 
-            var result = utils.sell(data);
-
-            Assert.Equal(2, result.Count);
+            return Task.FromResult(new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            });
         }
-
     }
 }

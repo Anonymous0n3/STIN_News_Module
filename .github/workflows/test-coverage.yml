@@ -1,0 +1,43 @@
+name: .NET Test Coverage
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # umožňuje ruční spuštění workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'  # změň podle verze .NET, kterou používáš
+
+    - name: Restore dependencies
+      run: dotnet restore STIN_News_Module.sln
+
+    - name: Build solution
+      run: dotnet build STIN_News_Module.sln --no-restore --configuration Release
+
+    - name: Run tests with coverage
+      run: dotnet test STIN_News_Module.sln --no-build --configuration Release --collect:"XPlat Code Coverage"
+
+    - name: Generate coverage report
+      uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
+      with:
+        reports: '**/coverage.cobertura.xml'
+        targetdir: 'coveragereport'
+        reporttypes: 'HtmlInline_AzurePipelines'
+
+    - name: Upload coverage report as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: coveragereport

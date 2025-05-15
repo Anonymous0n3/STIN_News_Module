@@ -5,10 +5,10 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:  # umožňuje ruční spuštění workflow
+  workflow_dispatch:
 
 jobs:
-  build:
+  test-and-coverage:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,16 +18,16 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.0.x'  # změň podle verze .NET, kterou používáš
+        dotnet-version: '8.0.x'  # uprav podle své verze
 
     - name: Restore dependencies
-      run: dotnet restore STIN_News_Module.sln
+      run: dotnet restore STIN_News_Module_Test/STIN_News_Module_Test.csproj
 
-    - name: Build solution
-      run: dotnet build STIN_News_Module.sln --no-restore --configuration Release
+    - name: Build tests
+      run: dotnet build STIN_News_Module_Test/STIN_News_Module_Test.csproj --configuration Release --no-restore
 
     - name: Run tests with coverage
-      run: dotnet test STIN_News_Module.sln --no-build --configuration Release --collect:"XPlat Code Coverage"
+      run: dotnet test STIN_News_Module_Test/STIN_News_Module_Test.csproj --no-build --configuration Release --collect:"XPlat Code Coverage"
 
     - name: Generate coverage report
       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4

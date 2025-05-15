@@ -38,7 +38,7 @@ namespace STIN_News_Module_Test
             var instance = FilterManager.Instance;
             var filters = filtersField.GetValue(instance) as List<FilterBase>;
 
-            Assert.Contains(filters, f => f.GetType().Name == "DummyFilter");
+            Assert.Contains(filters, f => f.GetType().Name == "NumOfArticles");
         }
 
     }

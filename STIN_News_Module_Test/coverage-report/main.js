@@ -216,14 +216,14 @@ var assemblies = [
       { "name": "STIN_News_Module.Logic.AIStuff.AI", "rp": "STIN_News_Module_AI.html", "cl": 0, "ucl": 47, "cal": 47, "tl": 86, "cb": 0, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "STIN_News_Module.Logic.AIStuff.Sentiment", "rp": "STIN_News_Module_Sentiment.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 8, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "STIN_News_Module.Logic.EnvLoad", "rp": "STIN_News_Module_EnvLoad.html", "cl": 17, "ucl": 0, "cal": 17, "tl": 26, "cb": 6, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "STIN_News_Module.Logic.Filtering.FilterManager", "rp": "STIN_News_Module_FilterManager.html", "cl": 25, "ucl": 0, "cal": 25, "tl": 43, "cb": 6, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "STIN_News_Module.Logic.Filtering.FilterManager", "rp": "STIN_News_Module_FilterManager.html", "cl": 23, "ucl": 2, "cal": 25, "tl": 43, "cb": 5, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "STIN_News_Module.Logic.Filtering.Filters.NegativeRatingFilter", "rp": "STIN_News_Module_NegativeRatingFilter.html", "cl": 12, "ucl": 0, "cal": 12, "tl": 22, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "STIN_News_Module.Logic.Filtering.Filters.NumOfArticles", "rp": "STIN_News_Module_NumOfArticles.html", "cl": 13, "ucl": 0, "cal": 13, "tl": 23, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "STIN_News_Module.Logic.Filtering.Filters.NumOfArticles", "rp": "STIN_News_Module_NumOfArticles.html", "cl": 7, "ucl": 6, "cal": 13, "tl": 23, "cb": 1, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "STIN_News_Module.Logic.JsonModel.DataModel", "rp": "STIN_News_Module_DataModel.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 25, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "STIN_News_Module.Logic.JsonModel.JSONLogic", "rp": "STIN_News_Module_JSONLogic.html", "cl": 16, "ucl": 0, "cal": 16, "tl": 33, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "STIN_News_Module.Logic.Logging.LoggingService", "rp": "STIN_News_Module_LoggingService.html", "cl": 14, "ucl": 0, "cal": 14, "tl": 27, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "STIN_News_Module.Logic.News.News_Getting", "rp": "STIN_News_Module_News_Getting.html", "cl": 0, "ucl": 23, "cal": 23, "tl": 45, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "STIN_News_Module.Logic.Utils", "rp": "STIN_News_Module_Utils.html", "cl": 15, "ucl": 63, "cal": 78, "tl": 125, "cb": 4, "tb": 22, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "STIN_News_Module.Logic.Utils", "rp": "STIN_News_Module_Utils.html", "cl": 15, "ucl": 65, "cal": 80, "tl": 129, "cb": 4, "tb": 26, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
 ];
 
@@ -238,19 +238,19 @@ var riskHotspotMetrics = [
 
 var riskHotspots = [
   {
+    "assembly": "STIN_News_Module", "class": "STIN_News_Module.Logic.Utils", "reportPath": "STIN_News_Module_Utils.html", "methodName": "doAllLogic()", "methodShortName": "doAllLogic()", "fileIndex": 0, "line": 24,
+    "metrics": [
+      { "value": 272, "exceeded": true },
+      { "value": 16, "exceeded": true },
+    ]},
+  {
     "assembly": "STIN_News_Module", "class": "STIN_News_Module.Logic.AIStuff.AI", "reportPath": "STIN_News_Module_AI.html", "methodName": "GetClasification()", "methodShortName": "GetClasification()", "fileIndex": 0, "line": 25,
     "metrics": [
       { "value": 156, "exceeded": true },
       { "value": 12, "exceeded": false },
     ]},
   {
-    "assembly": "STIN_News_Module", "class": "STIN_News_Module.Logic.Utils", "reportPath": "STIN_News_Module_Utils.html", "methodName": "doAllLogic()", "methodShortName": "doAllLogic()", "fileIndex": 0, "line": 24,
-    "metrics": [
-      { "value": 156, "exceeded": true },
-      { "value": 12, "exceeded": false },
-    ]},
-  {
-    "assembly": "STIN_News_Module", "class": "STIN_News_Module.Logic.Utils", "reportPath": "STIN_News_Module_Utils.html", "methodName": "GetFromBurzaAsync()", "methodShortName": "GetFromBurzaAsync()", "fileIndex": 0, "line": 99,
+    "assembly": "STIN_News_Module", "class": "STIN_News_Module.Logic.Utils", "reportPath": "STIN_News_Module_Utils.html", "methodName": "GetFromBurzaAsync()", "methodShortName": "GetFromBurzaAsync()", "fileIndex": 0, "line": 103,
     "metrics": [
       { "value": 42, "exceeded": true },
       { "value": 6, "exceeded": false },

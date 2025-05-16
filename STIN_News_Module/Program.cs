@@ -2,7 +2,7 @@ using STIN_News_Module.Logic;
 using STIN_News_Module.Logic.JsonModel;
 using STIN_News_Module.Logic.Logging;
 
-//Testing comment for coverage test
+//Testing comment for coverage test v2
 var builder = WebApplication.CreateBuilder(args);
 
 EnvLoad.Load();
